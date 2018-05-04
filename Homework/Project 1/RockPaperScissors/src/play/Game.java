@@ -22,7 +22,7 @@ public class Game {
     public Game(){}
 
     public void play(){
-        System.out.println("Let's play a game of Rock, Paper, Scissors!");
+        System.out.println("Welcome to Rock, Paper, Scissors ALPHA!");
         while (!gameover){
             getPlayerNames();
             getHands();
