@@ -6,6 +6,8 @@ import java.util.Scanner;
 
 public class Game {
 
+    // setup
+
     private boolean gameover = false;
     private Scanner read = new Scanner(System.in);
     public HashMap<Integer, Player> hands = new HashMap<>();
@@ -23,6 +25,7 @@ public class Game {
 
     public Game(){}
 
+    // game menu loop
     public void play(){
         System.out.println("Welcome to Rock, Paper, Scissors ALPHA!");
         try{
@@ -79,7 +82,7 @@ public class Game {
 
                 System.out.println("Would you like to play against a bot?");
                 String playAgainstComputer = read.next();
-                if (playAgainstComputer.equals("yes")) {
+                if (playAgainstComputer.equals("yes") || playAgainstComputer.equals("y")) {
 
                     playerTwo.name = "RPS Bot 9001";
                     System.out.println("Delightful. My buddy '" + playerTwo.name + "' will play against you");
@@ -88,7 +91,7 @@ public class Game {
                     playerOne.name = read.next();
                     loop = false;
 
-                } else if (playAgainstComputer.equals("no")) {
+                } else if (playAgainstComputer.equals("no") || playAgainstComputer.equals("n")) {
                     System.out.println("Enter name for player 1: ");
                     playerOne.name = read.next();
 
@@ -107,7 +110,8 @@ public class Game {
 
     }
 
-
+    // determines winner based on sum of hands. If Rock is 1 and paper is -1, paper wins.
+    // the sum of 1 + -1 is 0, if sum is 0, -1 wins.
     public String evaluateHands(){
         System.out.println(playerOne.name + " chose " + handTypes.get(playerOne.hand));
         System.out.println(playerTwo.name + " chose " + handTypes.get(playerTwo.hand));

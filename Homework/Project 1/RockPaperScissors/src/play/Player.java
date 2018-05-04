@@ -7,6 +7,7 @@ public class Player {
 
     public int hand;
     public String name;
+
     public boolean won;
 
     public Player(){}

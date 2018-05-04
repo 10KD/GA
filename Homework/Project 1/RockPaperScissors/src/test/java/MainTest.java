@@ -68,10 +68,4 @@ public class MainTest {
         actualValue = game.evaluateHands();
         assertEquals(expectedValue, actualValue);
     }
-//
-
-
-
-
-
 }
