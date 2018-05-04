@@ -1,6 +1,5 @@
 package play;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -9,7 +8,7 @@ public class Game {
 
     private boolean gameover = false;
     private Scanner read = new Scanner(System.in);
-    public HashMap<Integer, Player> hands;
+    public HashMap<Integer, Player> hands = new HashMap<>();
     private HashMap<Integer, String> handTypes = new HashMap<>();
     {
         handTypes.put(1, "Rock");
@@ -28,17 +27,16 @@ public class Game {
         System.out.println("Welcome to Rock, Paper, Scissors ALPHA!");
         try{
             while (!gameover){
-                String loadMenu = menu();
-                if (loadMenu.equals("play")) {
+                String menuSelection = menu();
+                if (menuSelection.equals("play")) {
                     getPlayerNames();
                     getHands();
                     evaluateHands();
-    //                repeat();
-                } else if (loadMenu.equals("history")) {
+                } else if (menuSelection.equals("history")) {
                     for (String record:history) {
                         System.out.println(record);
                     }
-                } else if (loadMenu.equals("quit")){
+                } else if (menuSelection.equals("quit")){
                     System.out.println("Thanks for playing! Goodbye.");
                     gameover = true;
                 } else {
@@ -58,35 +56,8 @@ public class Game {
         System.out.println("1. Type 'play' to play");
         System.out.println("2. Type 'history' to view your game history");
         System.out.println("Type 'quit' to exit");
-
-
         String result = read.next().toLowerCase();
         return result;
-
-    }
-
-
-    private void repeat(){
-        System.out.println("Would you like to play again?");
-        boolean loop = true;
-        try {
-
-            while (loop){
-                String answer = read.next().toLowerCase();
-                if (answer.equals("no")){
-                    System.out.println("Thanks for playing! Goodbye.");
-                    gameover = true;
-                    loop = false;
-                } else if (answer.equals("yes")){
-                    loop = false;
-                } else {
-                    System.out.println("Invalid answer. Please choose between 'yes' / 'no': ");
-                }
-            }
-        } catch (NullPointerException e){
-            e.printStackTrace();
-            System.out.println("Invalid Input!");
-        }
     }
 
     private void getHands(){
@@ -140,7 +111,6 @@ public class Game {
     public String evaluateHands(){
         System.out.println(playerOne.name + " chose " + handTypes.get(playerOne.hand));
         System.out.println(playerTwo.name + " chose " + handTypes.get(playerTwo.hand));
-//        System.out.println("hands count: " + hands.size());
         int handsSum = addHands();
 
         if (hands.size() < 2){
@@ -167,7 +137,7 @@ public class Game {
             return hands.get(0).name + " Wins!";
 
         }
-        return "idk";
+        return "Hands error. There are more than two hands";
     }
 
     private int addHands(){
@@ -175,7 +145,6 @@ public class Game {
         for (int hand: hands.keySet()) {
             sum += hand;
         }
-//        System.out.println("hands sum: " + sum);
         return sum;
     }
 

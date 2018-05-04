@@ -52,6 +52,5 @@ public class Player {
         // rng plucked from https://stackoverflow.com/questions/27976857/how-to-get-random-number-with-negative-number-in-range
         Random random = new Random();
         hand = random.nextInt(2) * (random .nextBoolean() ? -1 : 1);
-//        System.out.println("robot hand: " + hand);
     }
 }
