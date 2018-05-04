@@ -22,7 +22,7 @@ public class Game {
     public Game(){}
 
     public void play(){
-
+        System.out.println("Let's play a game of Rock, Paper, Scissors!");
         while (!gameover){
             getPlayerNames();
             getHands();
@@ -35,17 +35,23 @@ public class Game {
     public void repeat(){
         System.out.println("Would you like to play again?");
         boolean loop = true;
-        while (loop){
-            String answer = read.next().toLowerCase();
-            if (answer.equals("no")){
-                System.out.println("Thanks for playing! Goodbye.");
-                gameover = true;
-                loop = false;
-            } else if (answer.equals("yes")){
-                loop = false;
-            } else {
-                System.out.println("Invalid answer. Please choose between 'yes' / 'no': ");
+        try {
+
+            while (loop){
+                String answer = read.next().toLowerCase();
+                if (answer.equals("no")){
+                    System.out.println("Thanks for playing! Goodbye.");
+                    gameover = true;
+                    loop = false;
+                } else if (answer.equals("yes")){
+                    loop = false;
+                } else {
+                    System.out.println("Invalid answer. Please choose between 'yes' / 'no': ");
+                }
             }
+        } catch (NullPointerException e){
+            e.printStackTrace();
+            System.out.println("Invalid Input!");
         }
     }
 
@@ -60,24 +66,34 @@ public class Game {
     public void getPlayerNames(){
         System.out.println("Would you like to play against a bot?");
         String playAgainstComputer = read.next();
+        boolean loop = true;
+        while (loop) {
+            try {
+                if (playAgainstComputer.equals("yes")){
 
-        if (playAgainstComputer.equals("yes")){
+                    playerOne.name = "RPS Bot 9001";
+                    System.out.println("Delightful. My buddy '" + playerOne.name + "' will play against you");
+                    System.out.println("");
+                    System.out.println("Enter your name: ");
 
-            playerOne.name = "RPS Bot 9001";
-            System.out.println("Delightful. My buddy '" + playerOne.name + "' will play against you");
-            System.out.println("");
-            System.out.println("Enter your name: ");
+                    playerTwo.name = read.next();
+                    loop = false;
+                } else if (playAgainstComputer.equals("no")){
+                    System.out.println("Enter name for player 1: ");
 
-            playerTwo.name = read.next();
-        } else {
-            System.out.println("Enter name for player 1: ");
+                    playerOne.name = read.next();
+                    System.out.println("Enter name for player 2: ");
 
-            playerOne.name = read.next();
-            System.out.println("Enter name for player 2: ");
-
-            playerTwo.name = read.next();
+                    playerTwo.name = read.next();
+                    loop = false;
+                } else {
+                    System.out.println("Invalid answer. Please choose between 'yes' / 'no': ");
+                }
+            } catch (NullPointerException e){
+                e.printStackTrace();
+                System.out.println("Invalid Input!");
+            }
         }
-
     }
 
 
