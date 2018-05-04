@@ -20,6 +20,9 @@ public class Game {
     public Player playerOne = new Player();
     public Player playerTwo = new Player();
     public ArrayList<String> history = new ArrayList<>();
+    {
+        history.add("<< GAME HISTORY >>");
+    }
     public int historyIndex = 1;
 
 
@@ -35,14 +38,16 @@ public class Game {
                     getPlayerNames();
                     getHands();
                     evaluateHands();
+                    Thread.sleep(2000);
                 } else if (menuSelection.equals("history")) {
-                    if (history.size() > 0) {
+                    if (history.size() > 1) {
                         for (String record:history) {
                             System.out.println(record);
                         }
                     } else {
                         System.out.println("No games have been played yet.");
                     }
+                    Thread.sleep(2000);
                 } else if (menuSelection.equals("quit")){
                     System.out.println("Thanks for playing! Goodbye.");
                     gameover = true;
@@ -53,6 +58,8 @@ public class Game {
         } catch (NullPointerException e){
             e.printStackTrace();
             System.out.println("Invalid Input!");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 

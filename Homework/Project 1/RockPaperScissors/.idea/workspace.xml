@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="53085f5c-f090-407b-a15e-ff808697eaef" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/play/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/play/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/play/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/play/Game.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -31,8 +31,8 @@
       <file leaf-file-name="Game.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/play/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1862">
-              <caret line="25" column="16" lean-forward="true" selection-start-line="25" selection-start-column="16" selection-end-line="25" selection-end-column="16" />
+            <state relative-caret-position="331">
+              <caret line="48" column="34" selection-start-line="48" selection-start-column="34" selection-end-line="48" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -70,8 +70,8 @@
         <option value="$PROJECT_DIR$/src/Game.java" />
         <option value="$PROJECT_DIR$/src/test/java/MainTest.java" />
         <option value="$PROJECT_DIR$/src/Main.java" />
-        <option value="$PROJECT_DIR$/src/play/Game.java" />
         <option value="$PROJECT_DIR$/src/play/Player.java" />
+        <option value="$PROJECT_DIR$/src/play/Game.java" />
       </list>
     </option>
   </component>
@@ -351,8 +351,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/play/Game.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1862">
-          <caret line="25" column="16" lean-forward="true" selection-start-line="25" selection-start-column="16" selection-end-line="25" selection-end-column="16" />
+        <state relative-caret-position="331">
+          <caret line="48" column="34" selection-start-line="48" selection-start-column="34" selection-end-line="48" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
