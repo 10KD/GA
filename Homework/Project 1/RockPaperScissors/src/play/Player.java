@@ -13,7 +13,7 @@ public class Player {
     public Player(){}
 
     public void getHand(){
-        if (name == "RPS Bot 9001"){
+        if (name.equals("RPS Bot 9001")){
             getRobotHand();
 
         } else {

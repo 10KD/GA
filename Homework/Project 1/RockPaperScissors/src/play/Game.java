@@ -36,8 +36,12 @@ public class Game {
                     getHands();
                     evaluateHands();
                 } else if (menuSelection.equals("history")) {
-                    for (String record:history) {
-                        System.out.println(record);
+                    if (history.size() > 0) {
+                        for (String record:history) {
+                            System.out.println(record);
+                        }
+                    } else {
+                        System.out.println("No games have been played yet.");
                     }
                 } else if (menuSelection.equals("quit")){
                     System.out.println("Thanks for playing! Goodbye.");
