@@ -1,38 +1,72 @@
 package play;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
 public class Game {
 
-    public Scanner read = new Scanner(System.in);
-    public HashMap<Integer, String> hands;
-    public HashMap<Integer, String> handTypes = new HashMap<>();
+    private boolean gameover = false;
+    private Scanner read = new Scanner(System.in);
+    public HashMap<Integer, Player> hands;
+    private HashMap<Integer, String> handTypes = new HashMap<>();
     {
         handTypes.put(1, "Rock");
         handTypes.put(0, "Scissors");
         handTypes.put(-1, "Paper");
     }
-    public boolean gameover = false;
     public Player playerOne = new Player();
     public Player playerTwo = new Player();
+    public ArrayList<String> history = new ArrayList<>();
+    public int historyIndex = 1;
 
 
     public Game(){}
 
     public void play(){
         System.out.println("Welcome to Rock, Paper, Scissors ALPHA!");
-        while (!gameover){
-            getPlayerNames();
-            getHands();
-            evaluateHands();
-            repeat();
+        try{
+            while (!gameover){
+                String loadMenu = menu();
+                if (loadMenu.equals("play")) {
+                    getPlayerNames();
+                    getHands();
+                    evaluateHands();
+    //                repeat();
+                } else if (loadMenu.equals("history")) {
+                    for (String record:history) {
+                        System.out.println(record);
+                    }
+                } else if (loadMenu.equals("quit")){
+                    System.out.println("Thanks for playing! Goodbye.");
+                    gameover = true;
+                } else {
+                    System.out.println("Invalid answer. Please choose 'play, history, or quit': ");
+                }
+            }
+        } catch (NullPointerException e){
+            e.printStackTrace();
+            System.out.println("Invalid Input!");
         }
     }
 
+    private String menu(){
+        System.out.println("");
+        System.out.println("< MAIN MENU >");
+        System.out.println(" ----------- ");
+        System.out.println("1. Type 'play' to play");
+        System.out.println("2. Type 'history' to view your game history");
+        System.out.println("Type 'quit' to exit");
 
-    public void repeat(){
+
+        String result = read.next().toLowerCase();
+        return result;
+
+    }
+
+
+    private void repeat(){
         System.out.println("Would you like to play again?");
         boolean loop = true;
         try {
@@ -55,69 +89,82 @@ public class Game {
         }
     }
 
-    public void getHands(){
+    private void getHands(){
         hands = new HashMap<>();
         playerOne.getHand();
-        hands.put(playerOne.hand, playerOne.name);
+        hands.put(playerOne.hand, playerOne);
         playerTwo.getHand();
-        hands.put(playerTwo.hand, playerTwo.name);
+        hands.put(playerTwo.hand, playerTwo);
     }
 
-    public void getPlayerNames(){
-        System.out.println("Would you like to play against a bot?");
-        String playAgainstComputer = read.next();
-        boolean loop = true;
-        while (loop) {
-            try {
-                if (playAgainstComputer.equals("yes")){
+    private void getPlayerNames(){
+        playerOne.won = false;
+        playerTwo.won = false;
 
-                    playerOne.name = "RPS Bot 9001";
-                    System.out.println("Delightful. My buddy '" + playerOne.name + "' will play against you");
+        try {
+            boolean loop = true;
+
+            while (loop) {
+
+                System.out.println("Would you like to play against a bot?");
+                String playAgainstComputer = read.next();
+                if (playAgainstComputer.equals("yes")) {
+
+                    playerTwo.name = "RPS Bot 9001";
+                    System.out.println("Delightful. My buddy '" + playerTwo.name + "' will play against you");
                     System.out.println("");
                     System.out.println("Enter your name: ");
-
-                    playerTwo.name = read.next();
-                    loop = false;
-                } else if (playAgainstComputer.equals("no")){
-                    System.out.println("Enter name for player 1: ");
-
                     playerOne.name = read.next();
-                    System.out.println("Enter name for player 2: ");
+                    loop = false;
 
+                } else if (playAgainstComputer.equals("no")) {
+                    System.out.println("Enter name for player 1: ");
+                    playerOne.name = read.next();
+
+                    System.out.println("Enter name for player 2: ");
                     playerTwo.name = read.next();
                     loop = false;
+
                 } else {
                     System.out.println("Invalid answer. Please choose between 'yes' / 'no': ");
                 }
-            } catch (NullPointerException e){
-                e.printStackTrace();
-                System.out.println("Invalid Input!");
             }
+        } catch (NullPointerException e){
+            e.printStackTrace();
+            System.out.println("Invalid Input!");
         }
+
     }
 
 
     public String evaluateHands(){
         System.out.println(playerOne.name + " chose " + handTypes.get(playerOne.hand));
         System.out.println(playerTwo.name + " chose " + handTypes.get(playerTwo.hand));
-        System.out.println("hands count: " + hands.size());
+//        System.out.println("hands count: " + hands.size());
         int handsSum = addHands();
 
         if (hands.size() < 2){
             System.out.println("Tie Game!");
+            addToHistory("Tie!");
             return "Tie Game!";
 
         } else if (handsSum == 1){
-            System.out.println(hands.get(1) + " Wins!");
-            return hands.get(1) + " Wins!";
+            System.out.println(hands.get(1).name + " Wins!");
+            addToHistory(hands.get(1).name + " Won!");
+            hands.get(1).won = true;
+            return hands.get(1).name + " Wins!";
 
         } else if (handsSum == 0) {
-            System.out.println(hands.get(-1) + " Wins!");
-            return hands.get(-1) + " Wins!";
+            System.out.println(hands.get(-1).name + " Wins!");
+            addToHistory(hands.get(-1).name + " Won!");
+            hands.get(-1).won = true;
+            return hands.get(-1).name + " Wins!";
 
         } else if (handsSum == -1) {
-            System.out.println(hands.get(0) + " Wins!");
-            return hands.get(0) + " Wins!";
+            System.out.println(hands.get(0).name + " Wins!");
+            addToHistory(hands.get(-1).name + " Won!");
+            hands.get(0).won = true;
+            return hands.get(0).name + " Wins!";
 
         }
         return "idk";
@@ -128,7 +175,15 @@ public class Game {
         for (int hand: hands.keySet()) {
             sum += hand;
         }
-        System.out.println("hands sum: " + sum);
+//        System.out.println("hands sum: " + sum);
         return sum;
+    }
+
+    private void addToHistory(String result){
+        history.add(
+                "Game " + historyIndex + ": " + playerOne.name + " chose " + handTypes.get(playerOne.hand)
+                        + " and " + playerTwo.name + " chose " + handTypes.get(playerTwo.hand) + ". " + result
+        );
+        historyIndex++;
     }
 }
